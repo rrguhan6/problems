@@ -1,5 +1,5 @@
 # https://leetcode.com/problems/jump-game/
-# dp bottom up approuch
+# best solution
 # 0   unknown
 # 1   good
 # 2   bad
