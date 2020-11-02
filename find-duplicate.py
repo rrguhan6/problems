@@ -1,6 +1,8 @@
+# https: // leetcode.com/problems/find-the-duplicate-number/solution/
+
+
 class Solution:
     def findDuplicate(self, nums):
-        # Find the intersection point of the two runners.
         tortoise = hare = nums[0]
         while True:
             tortoise = nums[tortoise]
@@ -8,7 +10,6 @@ class Solution:
             if tortoise == hare:
                 break
 
-        # Find the "entrance" to the cycle.
         tortoise = nums[0]
         while tortoise != hare:
             tortoise = nums[tortoise]
