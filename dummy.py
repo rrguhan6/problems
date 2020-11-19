@@ -1,19 +1,56 @@
-class Solution:
-    def canJump(self, nums: List[int]) -> bool:
-        mem = [0 for i in range(len(nums))]
-        mem[-1:] = [1]
+def asteroidCollision(asteroids):
 
-        def can_jump(nums, mem):
-            print(len(nums)-2)
-            for i in range(len(nums)-2, -1, -1):
-                furthest_jump = min(nums[i] + i, len(nums)-1)
-                print(nums[i] + i, len(nums)-1-i)
-                # breakpoint()
-                for j in range(i+1, furthest_jump+1):
-                    if(mem[j] == 1):
-                        mem[i] = 1
+    solution = []
+    _as = [*asteroids]
+    f = asteroids.pop(0)
+
+    solution.append(f)
+
+    for i in asteroids:
+        if((i >= 0 and solution[0] >= 0) or (i < 0 and solution[0] < 0)):
+            solution.insert(0, i)
+        else:
+            if(i > 0 and solution[0] < 0):
+                solution.insert(0, i)
+                continue
+
+            i = -1 * i
+            for j in range(0, len(solution)):
+                if(((-1 * i) >= 0 and solution[j] >= 0) or ((-1 * i) < 0 and solution[j] < 0)):
+                    break
+                if(solution[j] != 0):
+
+                    if(solution[j] >= i):
+                        solution[j] = solution[j] - i
+                        i = 0
                         break
+                    else:
+                        i = i - solution[j]
+                        solution[j] = 0
+                        if(i == 0):
+                            break
+            if(i != 0):
+                solution.insert(0, (-1*i))
+            else:
+                solution.insert(0, 0)
+    print(solution)
+    ans = []
+    for i, j in enumerate(solution[::-1]):
+        if(j != 0):
+            ans.append(_as[i])
 
-            return mem[0] == 1
+    print(ans)
 
-        return can_jump(nums, mem)
+
+# asteroidCollision([10, 2, -5])
+# asteroidCollision([-8, 8])
+# asteroidCollision([-2, -1, 1, 2])
+# asteroidCollision([5, 10, -5])
+asteroidCollision([-2, -2, 1, -2])
+asteroidCollision([-2, 1, -2, -2])
+asteroidCollision([-2, 1, 1, -2])
+asteroidCollision([5, 10, 20, -50])
+
+# 5 10 20 - 50
+
+# 15 0 0 0
